@@ -4,6 +4,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 
+const router = require("./router/index");
+
 const PORT = process.env.PORT || 5000;
 
 class Server {
@@ -11,6 +13,11 @@ class Server {
 
   constructor() {
     this.app = express();
+
+    this.app.use(express.json());
+    this.app.use(cors());
+    this.app.use(cookieParser());
+    this.app.use("/api", router);
   }
 
   async start() {
@@ -26,4 +33,4 @@ class Server {
   }
 }
 
-module.exports = Server;
+module.exports = new Server();

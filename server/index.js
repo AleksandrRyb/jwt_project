@@ -1,5 +1,3 @@
-const Server = require("./server.js");
-
-const server = new Server();
+const server = require("./server.js");
 
 server.start();
