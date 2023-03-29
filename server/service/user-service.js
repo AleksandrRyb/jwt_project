@@ -1,6 +1,7 @@
 const User = require("../models/user-model");
 const bcrypt = require("bcrypt");
 const uuid = require("uuid");
+const mailService = require("./mail-service");
 
 class UserService {
   async registration(email, password) {
@@ -16,7 +17,17 @@ class UserService {
     const rounds = 10;
     const hashedPassword = await bcrypt.hash(password, rounds);
 
-    const newUser = User.create({ email, password: hashedPassword });
+    const newUser = await User.create({
+      email,
+      password: hashedPassword,
+      activationLink,
+    });
+
+    if (!newUser) {
+      throw new Error("Неизвестная ошибка.");
+    }
+
+    await mailService.sendActivationMail(email, activationLink);
   }
 }
 
