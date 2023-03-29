@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const Token = require("../models/token-model");
 
 class TokenService {
   async generateToken(payload) {
@@ -14,6 +15,19 @@ class TokenService {
       accessToken,
       refreshToken,
     };
+  }
+
+  async saveToken(userId, refreshToken) {
+    const existedToken = await Token.findOne({ refreshToken });
+
+    if (existedToken) {
+      existedToken.refreshToken = refreshToken;
+      return existedToken.save();
+    }
+
+    const newToken = Token.create({ user: userId, refreshToken });
+
+    return newToken;
   }
 }
 
