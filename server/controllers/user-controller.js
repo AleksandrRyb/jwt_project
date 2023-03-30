@@ -1,7 +1,14 @@
+const userService = require("../service/user-service");
+
 class UserController {
   async registration(req, res, next) {
     try {
-    } catch (error) {}
+      const result = await userService.registration(req.body);
+
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json(error);
+    }
   }
 
   async login(req, res, next) {

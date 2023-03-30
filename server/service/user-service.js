@@ -6,7 +6,7 @@ const tokenService = require("./token-service");
 const UserDto = require("../dtos/user-dto");
 
 class UserService {
-  async registration(email, password) {
+  async registration({ email, password }) {
     const existedUser = await User.findOne({ email });
 
     if (existedUser) {
@@ -30,6 +30,7 @@ class UserService {
     }
 
     await mailService.sendActivationMail(email, activationLink);
+
     const userDto = new UserDto(newUser);
     const tokens = await tokenService.generateToken({ ...userDto });
 
