@@ -44,7 +44,7 @@ class UserService {
   }
 
   async activate(activationLink) {
-    const user = await User.FindOne({ activationLink });
+    const user = await User.findOne({ activationLink });
 
     if (!user) {
       throw new Error("Неккоректная ссылка активации");
