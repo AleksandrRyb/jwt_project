@@ -44,6 +44,8 @@ class UserService {
     return { user: userDto, ...tokens };
   }
 
+  async login({ email, password }) {}
+
   async activate(activationLink) {
     const user = await User.findOne({ activationLink });
 
