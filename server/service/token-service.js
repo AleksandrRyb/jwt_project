@@ -36,6 +36,12 @@ class TokenService {
     return tokenData;
   }
 
+  async findToken(refreshToken) {
+    const tokenData = Token.findOne({ refreshToken });
+
+    return tokenData;
+  }
+
   async valudateAccessToken(token) {
     try {
       const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
