@@ -70,6 +70,12 @@ class UserService {
     return token;
   }
 
+  async refresh(refreshToken) {
+    if (!refreshToken) {
+      throw ApiError.badRequest("Неккоректный токен");
+    }
+  }
+
   async activate(activationLink) {
     const user = await User.findOne({ activationLink });
 
