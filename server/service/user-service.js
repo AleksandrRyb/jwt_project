@@ -47,13 +47,13 @@ class UserService {
   async login({ email, password }) {
     const user = await User.findOne({ email });
     if (!user) {
-      throw ApiError(`Пользователя c ${email} не существует`);
+      throw ApiError.badRequest(`Пользователя c ${email} не существует`);
     }
 
-    const isPasswordsEqual = bcrypt.compare(password, user.password);
+    const isPasswordsEqual = await bcrypt.compare(password, user.password);
 
     if (!isPasswordsEqual) {
-      throw ApiError("Неверно заполненые емэйл или пароль");
+      throw ApiError.badRequest("Неверно заполненые емэйл или пароль");
     }
 
     const userDto = new UserDto(user);
