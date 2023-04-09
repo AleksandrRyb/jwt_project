@@ -11,23 +11,29 @@ class UserController {
 
       return res.status(200).json(userData);
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
 
   async login(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 
   async logout(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 
   async refresh(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 
   async activate(req, res, next) {
@@ -37,12 +43,16 @@ class UserController {
       await userService.activate(activationLink);
 
       return res.redirect(process.env.CLIENT_URL);
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 
   async getUsers(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 }
 
