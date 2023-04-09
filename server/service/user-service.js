@@ -72,7 +72,7 @@ class UserService {
 
   async refresh(refreshToken) {
     if (!refreshToken) {
-      throw ApiError.badRequest("Неккоректный токен");
+      throw ApiError.unauthrizedError();
     }
   }
 
