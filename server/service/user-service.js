@@ -74,6 +74,21 @@ class UserService {
     if (!refreshToken) {
       throw ApiError.unauthrizedError();
     }
+
+    const userData = tokenService.valudateRefreshToken(refreshToken);
+    const tokenFromDb = await tokenService.findToken(refreshToken);
+
+    if (!userData || tokenFromDb) {
+      throw ApiError.unauthrizedError();
+    }
+
+    const user = User.findById(userData.id);
+    const userDto = new UserDto(user);
+    const tokens = await tokenService.generateToken({ ...userDto });
+
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return { user: userDto, ...tokens };
   }
 
   async activate(activationLink) {
