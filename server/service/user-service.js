@@ -64,6 +64,12 @@ class UserService {
     return { user: userDto, ...tokens };
   }
 
+  async logout(refreshToken) {
+    const token = tokenService.removeToken(refreshToken);
+
+    return token;
+  }
+
   async activate(activationLink) {
     const user = await User.findOne({ activationLink });
 
