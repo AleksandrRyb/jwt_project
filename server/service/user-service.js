@@ -44,7 +44,25 @@ class UserService {
     return { user: userDto, ...tokens };
   }
 
-  async login({ email, password }) {}
+  async login({ email, password }) {
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw ApiError(`Пользователя c ${email} не существует`);
+    }
+
+    const isPasswordsEqual = bcrypt.compare(password, user.password);
+
+    if (!isPasswordsEqual) {
+      throw ApiError("Неверно заполненые емэйл или пароль");
+    }
+
+    const userDto = new UserDto(user);
+    const tokens = await tokenService.generateToken({ ...userDto });
+
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return { user: userDto, ...tokens };
+  }
 
   async activate(activationLink) {
     const user = await User.findOne({ activationLink });
