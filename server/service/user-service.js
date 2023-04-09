@@ -101,6 +101,11 @@ class UserService {
     user.isActivated = true;
     await user.save();
   }
+
+  async getAllUsers() {
+    const users = await User.find();
+    return users;
+  }
 }
 
 module.exports = new UserService();
