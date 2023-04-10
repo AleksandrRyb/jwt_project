@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
+const errorMiddleware = require("./middlewares/error-middleware");
 
 const router = require("./router/index");
 
@@ -18,6 +19,7 @@ class Server {
     this.app.use(cors());
     this.app.use(cookieParser());
     this.app.use("/api", router);
+    this.app.use(errorMiddleware);
   }
 
   async start() {
