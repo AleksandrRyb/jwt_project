@@ -1,6 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext } from "react";
+import { Context } from "..";
 
 const LoginForm: FC = () => {
+  const { store } = useContext(Context);
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
@@ -18,8 +20,10 @@ const LoginForm: FC = () => {
         type="password"
         onChange={(event) => setPassword(event.target.value)}
       />
-      <button>Registration</button>
-      <button>Login</button>
+      <button onClick={() => store.registration(email, password)}>
+        Registration
+      </button>
+      <button onClick={() => store.login(email, password)}>Login</button>
     </div>
   );
 };
