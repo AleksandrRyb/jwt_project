@@ -1,4 +1,5 @@
 import { FC, useState, useContext } from "react";
+import { observer } from "mobx-react-lite";
 import { Context } from "..";
 
 const LoginForm: FC = () => {
@@ -28,4 +29,4 @@ const LoginForm: FC = () => {
   );
 };
 
-export default LoginForm;
+export default observer(LoginForm);
