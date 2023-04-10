@@ -42,7 +42,7 @@ class TokenService {
     return tokenData;
   }
 
-  async valudateAccessToken(token) {
+  valudateAccessToken(token) {
     try {
       const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
       return userData;
@@ -51,7 +51,7 @@ class TokenService {
     }
   }
 
-  async valudateRefreshToken(token) {
+  valudateRefreshToken(token) {
     try {
       const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
       return userData;
