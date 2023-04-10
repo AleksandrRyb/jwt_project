@@ -16,7 +16,12 @@ class Server {
     this.app = express();
 
     this.app.use(express.json());
-    this.app.use(cors());
+    this.app.use(
+      cors({
+        credentials: true,
+        origin: process.env.CLIENT_URL,
+      })
+    );
     this.app.use(cookieParser());
     this.app.use("/api", router);
     this.app.use(errorMiddleware);
