@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, observable } from "mobx";
 import axios from "axios";
 import { IUser } from "../models/IUser";
 import AuthService from "../services/AuthService";

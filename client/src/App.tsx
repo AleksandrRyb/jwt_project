@@ -7,6 +7,7 @@ const App: React.FC = () => {
   const { store } = React.useContext(Context);
 
   React.useEffect(() => {
+    console.log("render");
     if (localStorage.getItem("accessToken")) {
       store.checkAuth();
     }
